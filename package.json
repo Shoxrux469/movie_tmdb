@@ -1,0 +1,18 @@
+{
+  "name": "movie-imdb",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^4.4.5"
+  },
+  "dependencies": {
+    "axios": "^1.6.2",
+    "sass": "^1.69.5"
+  }
+}
