@@ -1,44 +1,74 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./style.scss">
-    <title>Vite App</title>
-  </head>
-  <body>
-    <section>
 
-      <div class="joker_bg"></div>
-      
-      <div class="container">
-        <header>
-        </header>
-        <div class="now_playing_content">
-          <div class="title_box">
-            <h1>Сейчас в кино</h1>
-			<div class="line"></div>
-			<ul type="none">
-				<li class="all">Все</li>
-				<li class="action_movie">Боевики</li>
-				<li class="adventure">Приключения</li>
-				<li class="comedy">Комедии</li>
-				<li class="fantasy">Фантастика</li>
-				<li class="thriller">Триллеры</li>
-				<li class="drama">Драма</li>
-			</ul>
-          </div>
-		  <div class="pop_movies_box">
-			
-		  </div>
-      <button class="all_novelties_btn">Все новинки</button>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./style.scss">
+  <title>Vite App</title>
+</head>
+
+<body>
+  <section>
+
+    <div class="joker_bg"></div>
+
+    <div class="container">
+      <header>
+      </header>
+      <div class="now_playing_content">
+        <div class="title_box">
+          <h1>Сейчас в кино</h1>
+          <div class="line"></div>
+          <ul type="none">
+            <li class="all">Все</li>
+            <li class="action_movie">Боевики</li>
+            <li class="adventure">Приключения</li>
+            <li class="comedy">Комедии</li>
+            <li class="fantasy">Фантастика</li>
+            <li class="thriller">Триллеры</li>
+            <li class="drama">Драма</li>
+          </ul>
         </div>
+        <div class="pop_movies_box">
 
+        </div>
+        <button class="all_novelties_btn">Все новинки</button>
       </div>
-      
-    </section>
+      <div class="new_trailers">
+        <div class="new_trailers_title">
+          <h1>Новые трейлеры</h1>
+          <p>Все трейлеры <img src="./public/Arrow_right.svg" alt=""></p>
+        </div>
+        <div class="trailer_box">
+          <iframe width="100%" height="660px" src=""></iframe>
+          <div class="trailer_descr">
+            <ul>
+              <li>
+                <h2 class="trailer_title"></h2>
+                <img src="./public/networks_immg.svg" alt="">
+              </li>
+              <li>
+                <div class="like_btn">
+                  <img src="./public/like_icon.svg" alt="">
+                  <span class="likes_num">3 245</span>
+                </div>
+                <div class="dislike_btn">
+                  <img src="./public/dislike_icon.svg" alt="">
+                  <span class="dislikes_num">420</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
 
-    <script type="module" src="/main.js"></script>
-  </body>
+    </div>
+
+  </section>
+
+  <script type="module" src="/main.js"></script>
+</body>
+
 </html>

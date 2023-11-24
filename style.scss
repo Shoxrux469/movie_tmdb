@@ -110,7 +110,7 @@ section {
       display: flex;
       flex-direction: column;
       gap: 50px;
-	  margin-bottom: 40px;
+      margin-bottom: 40px;
       .title_box {
         display: flex;
         justify-content: space-between;
@@ -137,7 +137,7 @@ section {
             color: rgba(255, 255, 255, 0.35);
             font-size: 18px;
             font-weight: 700;
-			cursor: pointer;
+            cursor: pointer;
           }
           li:nth-child(1) {
             color: #fff;
@@ -159,19 +159,42 @@ section {
       }
       .all_novelties_btn {
         border-radius: 10px;
-		width: fit-content;
+        width: fit-content;
         border: 2px solid #fff;
         background-color: transparent;
         color: #fff;
         font-size: 18px;
-		margin: 0 auto;
+        margin: 0 auto;
         font-weight: 700;
-		display: flex;
-		align-items: center;
-		justify-content: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         line-height: 166.5%;
-		padding: 16px 46px;
-		cursor: pointer;
+        padding: 16px 46px;
+        cursor: pointer;
+      }
+    }
+    .new_trailers {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      &_title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: #fff;
+        h1 {
+          font-size: 50px;
+          font-weight: 900;
+        }
+        p {
+          margin-top: 12px;
+          display: flex;
+          font-size: 22px;
+          font-weight: 700;
+          align-items: center;
+          gap: 8px;
+        }
       }
     }
   }
