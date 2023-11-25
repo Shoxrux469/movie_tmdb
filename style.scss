@@ -312,15 +312,16 @@ section {
         align-items: center;
         h1 {
           color: #fff;
-          font-size: 45px;
+          font-size: 48px;
           font-weight: 900;
         }
         ul {
           display: flex;
-          gap: 16px;
-          margin-top: 12px;
+          gap: 24px;
+          margin-top: 16px;
           align-items: center;
           li {
+            cursor: pointer;
             color: #6d717d;
             font-size: 18px;
             font-weight: 700;
@@ -348,17 +349,27 @@ section {
           .pop_stars_div {
             position: absolute;
             bottom: 0;
-            left: 36%;
+			width: 100%;
+            left: 55%;
+			display: flex;
+			flex-direction: column;
             transform: translate(-50%, -50%);
             h2 {
               color: #fff;
-              font-size: 27px;
+              font-size: 25px;
+			  width: 100%;
               font-weight: 700;
             }
             p {
               color: rgba(255, 255, 255, 0.35);
               font-size: 20px;
               font-weight: 600;
+            }
+            span {
+              color: #f2f60f;
+              font-size: 15px;
+              font-weight: 500;
+              line-height: 20px; /* 133.333% */
             }
           }
         }

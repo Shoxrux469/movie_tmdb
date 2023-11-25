@@ -210,6 +210,7 @@ export function reload_pop_stars(arr, place) {
 		let img = document.createElement('img')
 		let img_title = document.createElement('h2')
 		let origin_title = document.createElement('p')
+		let known_for = document.createElement('span')
 		let div = document.createElement('div')
 
 		console.log(item);
@@ -221,11 +222,15 @@ export function reload_pop_stars(arr, place) {
 		img.src = 'https://image.tmdb.org/t/p/original' + item.profile_path
 		img_title.innerHTML = item.name
 		origin_title.innerHTML = item.original_name
-		div.append(img_title, origin_title)
+		div.append(img_title, origin_title, known_for)
 		img_box.append(img, div)
 		place.append(img_box)
 
 		console.log(item);
 
+		for(let film of item.known_for) {
+			// console.log(film);
+			known_for.innerHTML = film.title
+		}
 	}
 }
