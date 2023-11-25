@@ -208,11 +208,24 @@ export function reload_pop_stars(arr, place) {
 	for(let item of arr) {
 		let img_box = document.createElement('div')
 		let img = document.createElement('img')
-		let img_rating = document.createElement('span')
 		let img_title = document.createElement('h2')
 		let origin_title = document.createElement('p')
-		let life_span = document.createElement('span')
+		let div = document.createElement('div')
 
-		
+		console.log(item);
+
+		img_box.classList.add('pop_stars_box')
+		img.classList.add('pop_stars_img')
+		div.classList.add('pop_stars_div')
+
+		img.src = 'https://image.tmdb.org/t/p/original' + item.profile_path
+		img_title.innerHTML = item.name
+		origin_title.innerHTML = item.original_name
+		div.append(img_title, origin_title)
+		img_box.append(img, div)
+		place.append(img_box)
+
+		console.log(item);
+
 	}
 }

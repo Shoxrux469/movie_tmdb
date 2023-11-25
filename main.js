@@ -1,4 +1,4 @@
-import { header, reload_pop_movies, reload_now_playing } from "./modules/ui.js";
+import { header, reload_pop_movies, reload_now_playing, reload_pop_stars } from "./modules/ui.js";
 import { getData } from "./modules/https.js";
 let iframe = document.querySelector("iframe");
 let pop_movies_box = document.querySelector(".pop_movies_box");
