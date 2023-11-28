@@ -5,15 +5,35 @@
 	<meta charset="UTF-8" />
 	<link rel="icon" type="image/svg+xml" href="/vite.svg" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 	<link rel="stylesheet" href="./style.scss">
 	<title>Vite App</title>
 </head>
 
 <body>
 	<section>
+		<div class="searcher_wrapper">
 
-		<input type="text">
-
+			<div class="searcher_box">
+				<div class="logo">
+					<img src="./public/cinema_logo.svg" alt="">
+					<p> <span>Kino</span>area</p>
+				</div>
+				<div class="inp_box">
+					<input class="searcher" placeholder="Search..." />
+					<button><img src="./public/searcher_icon.svg" alt=""></button>
+					<img class="close_search" src="./public/ex_icon.svg" alt="">
+				</div>
+				<div class="categories">
+					<button>Movies</button>
+					<button>Actors</button>
+					<button>TV</button>
+				</div>
+			</div>
+			<div class="movies_box">
+				
+			</div>
+		</div>
 		<div class="joker_bg"></div>
 
 		<header>
@@ -103,7 +123,7 @@
 					</ul>
 				</div>
 				<div class="pop_stars_wrapper">
-					<div class="pop_stars_content">
+					<div class="pop_stars_content ">
 
 					</div>
 					<div class="pop_stars_list">
@@ -140,7 +160,7 @@
 			</div>
 			<footer>
 				<img src="./public/footer_networks.svg" alt="">
-				<ul type="none"> 
+				<ul type="none">
 					<li>Афиша</li>
 					<li>Новости</li>
 					<li>Персоны</li>
@@ -155,6 +175,11 @@
 
 	</section>
 
+	
+	<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+	<script>
+		AOS.init();
+	  </script>
 	<script type="module" src="/main.js"></script>
 </body>
 

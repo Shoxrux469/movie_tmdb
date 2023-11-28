@@ -15,6 +15,133 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+*::-webkit-scrollbar {
+  width: 6px;
+}
+*::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 100px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+*::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+.searcher_wrapper {
+  position: fixed;
+  z-index: 999;
+  left: 50%;
+  width: 100%;
+  height: 100vh;
+  display: none;
+  background-color: #000000e8;
+  backdrop-filter: blur(5px);
+  transform: translate(-50%);
+  .searcher_box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 1240px;
+    padding-top: 40px;
+    animation: modalFadeIn 0.4s ease-in-out;
+    margin-left: 40px;
+    .logo {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 20px;
+      p {
+        color: #fff;
+        font-size: 25px;
+        font-weight: 800;
+        span {
+          color: #3657cb;
+          font-size: 25px;
+          font-weight: 800;
+        }
+      }
+    }
+    @keyframes modalFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-100%);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .categories {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      button {
+        width: 33.3333334%;
+        height: 48px;
+        display: flex;
+        align-items: end;
+        position: relative;
+        justify-content: center;
+        color: #fff;
+        font-size: 22px;
+        background-color: transparent;
+        border: 0;
+      }
+      button:hover {
+        border-bottom: 4px solid #5e78df8b;
+        background: linear-gradient(transparent, #ffffff10);
+      }
+      .active {
+        border-bottom: 4px solid #3657cb !important;
+        background: linear-gradient(transparent, #3657cb30) !important;
+      }
+    }
+    .inp_box {
+      position: relative;
+      width: 100%;
+      input {
+        width: 100%;
+        padding: 16px 16px;
+        border: 0;
+        font-size: 20px;
+        border-radius: 8px;
+      }
+      .close_search {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: -3.5%;
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+      }
+      button {
+        position: absolute;
+        width: fit-content;
+        height: fit-content;
+        border-radius: 10px;
+        background-color: #f2f60f;
+        border: 0;
+        top: 3px;
+        right: 4px;
+        img {
+          width: 46px;
+          height: 46px;
+          fill: #f2f60f;
+        }
+      }
+    }
+  }
+  .movies_box {
+    width: 94%;
+    margin: 8px auto;
+    height: 80%;
+    // background-color: red;
+  }
+}
+
 section {
   height: fit-content;
   background: #1e2538;
@@ -24,87 +151,87 @@ section {
     background: #151a26;
   }
   header {
-	padding-top: 20px;
-	width: 1240px;
-	margin: 0 auto;
-	.header {
-	  display: flex;
-	  align-items: center;
-	  justify-content: space-between;
-	  .left {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		gap: 6px;
-		.logo {
-		  display: flex;
-		  cursor: pointer;
-		  gap: 6px;
-		  align-items: center;
-		  p {
-			color: #fff;
-			font-size: 25px;
-			font-weight: 800;
-			span {
-			  color: #3657cb;
-			  font-size: 25px;
-			  font-weight: 800;
-			}
-		  }
-		}
-		.networks {
-		  width: fit-content;
-		  img {
-			color: #686868;
-			width: 130px;
-			font-weight: 400;
-		  }
-		}
-	  }
-	  .center {
-		display: flex;
-		align-items: center;
-		gap: 36px;
-		a {
-		  color: white;
-		  text-decoration: none;
-		  cursor: pointer;
-		}
-		a:hover {
-		  transition: 0.4s;
-		  opacity: 0.5;
-		}
-	  }
-	  .right {
-		display: flex;
-		gap: 12px;
-		align-items: center;
-		.searcher_btn {
-		  width: 55px;
-		  height: 52px;
-		  background-color: transparent;
-		  border: 0px;
-		  cursor: pointer;
-		}
-		.sign_in {
-		  width: 138px;
-		  height: 53px;
-		  border-radius: 10px;
-		  border: 0;
-		  background: #3657cb;
-		  box-shadow: 0px 0px 15px 0px rgba(72, 113, 255, 0.1);
-		  color: #fff;
-		  font-size: 16px;
-		  font-weight: 700;
-		  line-height: 166.5%; /* 26.64px */
-		  cursor: pointer;
-		}
-		.sign_in:hover {
-		  transition: 0.4s;
-		  box-shadow: 0px 0px 15px 0px rgba(72, 113, 255, 0.8);
-		}
-	  }
-	}
+    padding-top: 20px;
+    width: 1240px;
+    margin: 0 auto;
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .left {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        .logo {
+          display: flex;
+          cursor: pointer;
+          gap: 6px;
+          align-items: center;
+          p {
+            color: #fff;
+            font-size: 25px;
+            font-weight: 800;
+            span {
+              color: #3657cb;
+              font-size: 25px;
+              font-weight: 800;
+            }
+          }
+        }
+        .networks {
+          width: fit-content;
+          img {
+            color: #686868;
+            width: 130px;
+            font-weight: 400;
+          }
+        }
+      }
+      .center {
+        display: flex;
+        align-items: center;
+        gap: 36px;
+        a {
+          color: white;
+          text-decoration: none;
+          cursor: pointer;
+        }
+        a:hover {
+          transition: 0.4s;
+          opacity: 0.5;
+        }
+      }
+      .right {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        .searcher_btn {
+          width: 55px;
+          height: 52px;
+          background-color: transparent;
+          border: 0px;
+          cursor: pointer;
+        }
+        .sign_in {
+          width: 138px;
+          height: 53px;
+          border-radius: 10px;
+          border: 0;
+          background: #3657cb;
+          box-shadow: 0px 0px 15px 0px rgba(72, 113, 255, 0.1);
+          color: #fff;
+          font-size: 16px;
+          font-weight: 700;
+          line-height: 166.5%; /* 26.64px */
+          cursor: pointer;
+        }
+        .sign_in:hover {
+          transition: 0.4s;
+          box-shadow: 0px 0px 15px 0px rgba(72, 113, 255, 0.8);
+        }
+      }
+    }
   }
   .container {
     width: 1240px;
@@ -415,7 +542,8 @@ section {
       display: flex;
       flex-direction: column;
       gap: 40px;
-	  margin-bottom: 30px;
+      margin-bottom: 30px;
+      margin-top: 30px;
       &_title {
         display: flex;
         justify-content: space-between;
@@ -478,42 +606,42 @@ section {
         }
       }
     }
-}
-footer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-block: 40px;
-  gap: 26px;
-  border-top: 1px solid #686868;
-  img {
-	width: 261px;
-	height: 35px;
   }
-  ul {
-	display: flex;
-	gap: 32px;
-	align-items: center;
-	li {
-	  color: #fff;
-	  font-size: 17px;
-	  font-weight: 700;
-	}
+  footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-block: 40px;
+    gap: 26px;
+    border-top: 1px solid #686868;
+    img {
+      width: 261px;
+      height: 35px;
+    }
+    ul {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+      li {
+        color: #fff;
+        font-size: 17px;
+        font-weight: 700;
+      }
+    }
+    p {
+      color: rgba(227, 230, 240, 0.72);
+      font-size: 15px;
+      font-weight: 400;
+      line-height: 119%; /* 17.85px */
+    }
+    a {
+      color: rgba(227, 230, 240, 0.72);
+      font-size: 15px;
+      font-weight: 400;
+      line-height: 119%; /* 17.85px */
+      text-decoration-line: underline;
+    }
   }
-  p {
-	color: rgba(227, 230, 240, 0.72);
-	font-size: 15px;
-	font-weight: 400;
-	line-height: 119%; /* 17.85px */
-  }
-  a {
-	color: rgba(227, 230, 240, 0.72);
-	font-size: 15px;
-	font-weight: 400;
-	line-height: 119%; /* 17.85px */
-	text-decoration-line: underline;
-  }
-}
 }
 .movies_imgs {
   position: relative;

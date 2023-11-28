@@ -4,22 +4,23 @@ import Swiper from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+
 let swiper_pagination = document.querySelector(".swiper-pagination");
-let body = document.body;
 let iframe = document.querySelector("iframe");
+
 export function header() {
   let header = document.querySelector("header");
 
   header.innerHTML = `
-  <div class="header">
-  <div class="left">
-  <div class="logo">
+		<div class="header">
+		<div class="left">
+		<div class="logo">
   <img src="./public/cinema_logo.svg" alt="">
   <p> <span>Kino</span>area</p>
   </div>
   <div class="networks">
   <a href="#"><img src="./public/networks_immg.svg" alt=""></a>
-    </div>
+  </div>
   </div>
   <nav class="center">
   <a href="#">Афиша</a>
@@ -28,14 +29,14 @@ export function header() {
   <a href="#">Актёры</a>
   <a href="#">Новости</a>
   <a href="#">Подборки</a>
-    <a href="#">Категории</a>
-    </nav>
-    <div class="right">
-    <button class="searcher_btn"><img src="./public/searcher_btn.svg" alt=""></button>
-    <button class="sign_in">Войти</button>
-    </div>
-    </div>
-    `;
+  <a href="#">Категории</a>
+  </nav>
+  <div class="right">
+  <button class="searcher_btn"><img src="./public/searcher_btn.svg" alt=""></button>
+  <button class="sign_in">Войти</button>
+  </div>
+  </div>
+  `;
 }
 
 export function reload_now_playing(arr, place, genres) {
@@ -209,14 +210,14 @@ export function reload_upcoming(arr, place) {
     const swiper = new Swiper(".swiper", {
       autoplay: {
         delay: 0,
-        pauseOnMouseEnter: true, 
-        disableOnInteraction: false, 
-        reverseDirection: true, 
+        pauseOnMouseEnter: true,
+        disableOnInteraction: false,
+        reverseDirection: true,
       },
-      slidesPerView: 4, 
+      slidesPerView: 4,
       speed: 3000,
-      slidesPerView: 'auto',
-	  centerInsufficientSlides:true,
+      slidesPerView: "auto",
+      centerInsufficientSlides: true,
 
       scrollbar: {
         el: ".swiper-scrollbar",
@@ -229,24 +230,30 @@ export function reload_upcoming(arr, place) {
 }
 
 export function reload_top_rated(arr, place) {
-	place.innerHTML = ""
-	for(let item of arr) {
-		console.log(item);
-		let img_box = document.createElement('div');
-		let img = document.createElement('img');
-		let img_title = document.createElement('h2');
-		let img_vote_average = document.createElement('span');
-		let img_release_date = document.createElement('p');
-		let img_info_box = document.createElement('div');
+  place.innerHTML = "";
+  for (let item of arr) {
+    console.log(item);
+    let img_box = document.createElement("div");
+    let img = document.createElement("img");
+    let img_title = document.createElement("h2");
+    let img_vote_average = document.createElement("span");
+    let img_release_date = document.createElement("p");
+    let img_info_box = document.createElement("div");
 
+    img.src = "https://image.tmdb.org/t/p/original" + item.poster_path;
+    img_title.innerHTML = item.title;
+    img_vote_average.innerHTML = item.vote_average;
+    img_release_date.innerHTML = item.release_date;
 
-		img.src = "https://image.tmdb.org/t/p/original" + item.poster_path
-		img_title.innerHTML = item.title
-		img_vote_average.innerHTML = item.vote_average
-		img_release_date.innerHTML = item.release_date
+    place.append(img_box);
+    img_box.append(img, img_info_box);
+    img_info_box.append(img_title, img_vote_average, img_release_date);
+  }
+}
 
-		place.append(img_box)
-		img_box.append(img, img_info_box)
-		img_info_box.append(img_title, img_vote_average, img_release_date)
-	}
+export function reload_all_movies(arr, place, genre) {
+  place.innerHTML = ''
+  for(let item of arr) {
+    console.log(item);
+  }
 }
