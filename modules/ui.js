@@ -39,7 +39,7 @@ export function header() {
   `;
 }
 
-export function reload_now_playing(arr, place, genres) {
+export function reload_movies(arr, place, genres) {
   place.innerHTML = "";
 
   for (let item of arr) {
@@ -94,54 +94,6 @@ export function reload_now_playing(arr, place, genres) {
   }
 }
 
-export function reload_pop_movies(arr, place, genres) {
-  place.innerHTML = "";
-
-  for (let item of arr) {
-    let img_box = document.createElement("div");
-    let img = document.createElement("img");
-    let genre_span = document.createElement("span");
-    let title = document.createElement("p");
-    let genreTitles = [];
-
-    img_box.classList.add("movies_imgs");
-    img_box.classList.add("swiper-slide");
-    title.classList.add("movies_title");
-    genre_span.classList.add("movies_genre");
-    img.src = "https://image.tmdb.org/t/p/original" + item.poster_path;
-    swiper_pagination.innerHTML = "4/" + arr.length;
-
-    for (let id of item.genre_ids) {
-      for (let genre of genres) {
-        if (id == genre.id) {
-          genreTitles.push(genre.name);
-        }
-      }
-    }
-
-    const swiper = new Swiper(".swiper", {
-      autoplay: {
-        delay: 0,
-        pauseOnMouseEnter: true, // added
-        disableOnInteraction: false, // added
-      },
-      speed: 3000,
-      slidesPerView: 3,
-
-      scrollbar: {
-        el: ".swiper-scrollbar",
-      },
-    });
-
-    img.src = "https://image.tmdb.org/t/p/original" + item.poster_path;
-    title.innerHTML = item.original_title;
-    genre_span.innerHTML = genreTitles.join(", ");
-
-    place.append(img_box);
-    img_box.append(img, title, genre_span);
-  }
-}
-
 export function reload_pop_stars(arr, place) {
   place.innerHTML = "";
   for (let item of arr) {
@@ -191,48 +143,10 @@ export function reload_pop_stars_list(arr, place) {
     info_box_left.append(info_box_title, info_box_origin_title);
   }
 }
-export function reload_upcoming(arr, place) {
-  place.innerHTML = "";
-  for (let item of arr) {
-    let img_box = document.createElement("div");
-    let img = document.createElement("img");
-    let title = document.createElement("p");
-    let release_date = document.createElement("span");
-
-    img_box.classList.add("upcoming_item");
-    img_box.classList.add("swiper-wrapper");
-    img_box.classList.add("swiper-slide");
-
-    img.src = "https://image.tmdb.org/t/p/original" + item.poster_path;
-    title.innerHTML = item.title;
-    release_date.innerHTML = item.release_date;
-
-    const swiper = new Swiper(".swiper", {
-      autoplay: {
-        delay: 0,
-        pauseOnMouseEnter: true,
-        disableOnInteraction: false,
-        reverseDirection: true,
-      },
-      slidesPerView: 4,
-      speed: 3000,
-      slidesPerView: "auto",
-      centerInsufficientSlides: true,
-
-      scrollbar: {
-        el: ".swiper-scrollbar",
-      },
-    });
-
-    img_box.append(img, title, release_date);
-    place.append(img_box);
-  }
-}
 
 export function reload_top_rated(arr, place) {
   place.innerHTML = "";
   for (let item of arr) {
-    console.log(item);
     let img_box = document.createElement("div");
     let img = document.createElement("img");
     let img_title = document.createElement("h2");
@@ -251,9 +165,39 @@ export function reload_top_rated(arr, place) {
   }
 }
 
-export function reload_all_movies(arr, place, genre) {
-  place.innerHTML = ''
-  for(let item of arr) {
-    console.log(item);
+export function reload_all_movies(arr, place, genres) {
+  place.innerHTML = "";
+  for (let item of arr) {
+    let movie_card = document.createElement("a");
+    let img = document.createElement("img");
+    let info_box = document.createElement("div");
+    let title = document.createElement("h2");
+    let origin_title = document.createElement("p");
+    let genre_span = document.createElement("span");
+    let rating = document.createElement("div");
+	let genreTitles = []
+
+	movie_card.classList.add("movie_card");
+	info_box.classList.add("info_box");
+	rating.classList.add("rating");
+
+    for (let id of item.genre_ids) {
+      for (let genre of genres) {
+        if (id == genre.id) {
+          genreTitles.push(genre.name);
+        }
+      }
+    }
+    img.src = "https://image.tmdb.org/t/p/original" + item.poster_path;
+    title.innerHTML = item.title;
+    origin_title.innerHTML = item.original_title;
+	genre_span.innerHTML = genreTitles.join(", ");
+	rating.innerHTML = item.vote_average.toFixed(2);
+
+
+	place.append(movie_card)
+	movie_card.append(img, info_box, rating)
+	info_box.append(title, origin_title, genre_span)
+
   }
 }
