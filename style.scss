@@ -198,7 +198,9 @@
     // background-color: red;
   }
 }
-
+[data-status] {
+	color: #fff !important;
+}
 section {
   height: fit-content;
   background: #1e2538;

@@ -21,6 +21,7 @@ let searcher_modal = document.querySelector(".searcher_wrapper");
 let close_modal = document.querySelector(".close_search");
 let movies_box = document.querySelector(".movies_box");
 let search_inp = document.querySelector(".searcher");
+let genres_list = document.querySelectorAll(".genres_list li");
 searcher_btn.onclick = () => {
   searcher_modal.classList.add("show");
 };
@@ -29,7 +30,6 @@ close_modal.onclick = () => {
 };
 
 btns.forEach((btn) => {
-    btn.classList.remove("active");
   btn.onclick = () => {
     btn.classList.add("active");
     let active = document.querySelector(".active");
@@ -65,8 +65,8 @@ btns.forEach((btn) => {
       processChange();
     };
   };
-  //   btn.classList.remove("active");
 });
+
 export function setTrailer(video) {
   iframe.src = "https://www.youtube.com/embed/" + video.key;
 }
@@ -84,9 +84,9 @@ Promise.all([
   getData("/movie/popular"),
   getData("/movie/upcoming"),
   getData("/genre/movie/list"),
-]).then(([movies_now_playing, movies_popular, upcoming, genres]) => {
+]).then(([now_playing_movies, movies_popular, upcoming_movies, genres]) => {
   reload_movies(
-    movies_now_playing.data.results.slice(0, 8),
+    now_playing_movies.data.results.slice(0, 8),
     now_playing_box,
     genres.data.genres
   );
@@ -95,5 +95,56 @@ Promise.all([
     pop_movies_box,
     genres.data.genres
   );
-  reload_movies(upcoming.data.results, upcoming_box, genres.data.genres);
+  reload_movies(upcoming_movies.data.results, upcoming_box, genres.data.genres);
+});
+
+let genres_box = [];
+
+genres_list.forEach((genre) => {
+  genre.onclick = (e) => {
+    if (e.target.getAttribute("data-status")) {
+      e.target.removeAttribute("data-status");
+      console.log(e.target.className);
+      getData("/genre/movie/list").then((items) => {
+        for (let item of items.data.genres) {
+          if (e.target.className === item.name) {
+            let index = genres_box.indexOf(item.id);
+            if (index !== -1) {
+              genres_box.splice(index, 1);
+            }
+            let joined_genres = genres_box.join(", ");
+            getData(`/discover/movie?with_genres=${joined_genres}`).then(
+              (res) =>
+                reload_movies(
+                  res.data.results.slice(0, 8),
+                  now_playing_box,
+                  items.data.genres
+                )
+            );
+          }
+        }
+      });
+    } else {
+      genre.dataset.status = "selected";
+
+      getData("/genre/movie/list").then((items) => {
+        for (let item of items.data.genres) {
+          if (genre.className === item.name) {
+            let joined_genres = genres_box.join(", ");
+            // console.log(item);
+            genres_box.push(item.id);
+            console.log(genres_box.join(", "));
+            getData(`/discover/movie?with_genres=${joined_genres}`).then(
+              (res) =>
+                reload_movies(
+                  res.data.results.slice(0, 8),
+                  now_playing_box,
+                  items.data.genres
+                )
+            );
+          }
+        }
+      });
+    }
+  };
 });
