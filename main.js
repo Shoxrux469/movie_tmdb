@@ -27,6 +27,8 @@ searcher_btn.onclick = () => {
 };
 close_modal.onclick = () => {
   searcher_modal.classList.remove("show");
+  search_inp.value = ""
+  movies_box.innerHTML = ''
 };
 
 btns.forEach((btn) => {
