@@ -1,11 +1,6 @@
 import { setTrailer } from "../main";
 import { getData } from "./https";
-import Swiper from "swiper";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
 
-let swiper_pagination = document.querySelector(".swiper-pagination");
 let iframe = document.querySelector("iframe");
 
 export function header() {

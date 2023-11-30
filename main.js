@@ -30,11 +30,14 @@ close_modal.onclick = () => {
 };
 
 btns.forEach((btn) => {
-  btn.onclick = () => {
-    btn.classList.add("active");
-    let active = document.querySelector(".active");
-    console.log(active.innerHTML.toLowerCase());
-
+  btn.onclick = (e) => {
+    let active = document.querySelectorAll(".active");
+    for (let act of active) {
+      act.classList.remove("active");
+      console.log(act.innerHTML.toLowerCase());
+    }
+	btn.classList.add("active");
+	
     function debounce(func, timeout = 400) {
       let timer;
       return (...args) => {
@@ -49,7 +52,7 @@ btns.forEach((btn) => {
       //   console.log("Saving data", search_inp.value); COUNRT NUMBER OF ITERATIONS
       Promise.all([
         getData(
-          `/search/${active.innerHTML.toLowerCase()}?query=${
+          `/search/${btn.innerHTML.toLowerCase()}?query=${
             search_inp.value
           }&page=1`
         ),
@@ -71,11 +74,13 @@ export function setTrailer(video) {
   iframe.src = "https://www.youtube.com/embed/" + video.key;
 }
 
-getData("/person/popular").then((res) => {
+getData("/person/popular")
+	.then((res) => {
   reload_pop_stars(res.data.results.slice(0, 2), pop_stars_content),
     reload_pop_stars_list(res.data.results, pop_stars_list);
 });
-getData("/movie/top_rated").then((res) =>
+getData("/movie/top_rated")
+	.then((res) =>
   reload_top_rated(res.data.results.slice(0, 5), top_rated_content)
 );
 
@@ -104,8 +109,9 @@ genres_list.forEach((genre) => {
   genre.onclick = (e) => {
     if (e.target.getAttribute("data-status")) {
       e.target.removeAttribute("data-status");
-      console.log(e.target.className);
-      getData("/genre/movie/list").then((items) => {
+
+      getData("/genre/movie/list")
+	  .then((items) => {
         for (let item of items.data.genres) {
           if (e.target.className === item.name) {
             let index = genres_box.indexOf(item.id);
@@ -113,7 +119,10 @@ genres_list.forEach((genre) => {
               genres_box.splice(index, 1);
             }
             let joined_genres = genres_box.join(", ");
-            getData(`/discover/movie?with_genres=${joined_genres}`).then(
+            console.log(genres_box.join(", "));
+
+            getData(`/discover/movie?with_genres=${joined_genres}`)
+			.then(
               (res) =>
                 reload_movies(
                   res.data.results.slice(0, 8),
@@ -127,14 +136,17 @@ genres_list.forEach((genre) => {
     } else {
       genre.dataset.status = "selected";
 
-      getData("/genre/movie/list").then((items) => {
+      getData("/genre/movie/list")
+	  .then((items) => {
         for (let item of items.data.genres) {
           if (genre.className === item.name) {
             let joined_genres = genres_box.join(", ");
             // console.log(item);
             genres_box.push(item.id);
             console.log(genres_box.join(", "));
-            getData(`/discover/movie?with_genres=${joined_genres}`).then(
+
+            getData(`/discover/movie?with_genres=${joined_genres}`)
+			.then(
               (res) =>
                 reload_movies(
                   res.data.results.slice(0, 8),
