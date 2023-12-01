@@ -65,7 +65,7 @@ export function reload_movies(arr, place, genres) {
         setTrailer(res.data.results[0]);
       });
       img_bg_btn.onclick = () => {
-		location.assign(`http://localhost:5173/pages/movie/?id=` + item.id)
+		location.assign(`http://localhost:5173/pages/movies/?id=` + item.id)
 	  };
 
       iframe.scrollIntoView({
