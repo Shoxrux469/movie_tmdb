@@ -1,3 +1,3 @@
-import { header } from "./modules/ui.js";
+import { header } from "../../modules/ui.js";
 
 header();
