@@ -40,7 +40,7 @@ export function reload_movies(arr, place, genres) {
   for (let item of arr) {
     let img_box = document.createElement("div");
     let img_bg = document.createElement("div");
-    let img_bg_btn = document.createElement("button");
+    let img_bg_btn = document.createElement("a");
     let img = document.createElement("img");
     let title = document.createElement("p");
     let genre_span = document.createElement("span");
@@ -60,10 +60,13 @@ export function reload_movies(arr, place, genres) {
     img_bg.onmouseout = () => {
       img_bg_btn.classList.remove("show");
     };
-    img_bg_btn.onclick = () => {
+    img_bg.onclick = () => {
       getData(`/movie/${item.id}/videos`).then((res) => {
         setTrailer(res.data.results[0]);
       });
+      img_bg_btn.onclick = () => {
+		location.assign(`http://localhost:5173/pages/movie/?id=` + item.id)
+	  };
 
       iframe.scrollIntoView({
         behavior: "smooth",
@@ -170,11 +173,11 @@ export function reload_all_movies(arr, place, genres) {
     let origin_title = document.createElement("p");
     let genre_span = document.createElement("span");
     let rating = document.createElement("div");
-	let genreTitles = []
+    let genreTitles = [];
 
-	movie_card.classList.add("movie_card");
-	info_box.classList.add("info_box");
-	rating.classList.add("rating");
+    movie_card.classList.add("movie_card");
+    info_box.classList.add("info_box");
+    rating.classList.add("rating");
 
     for (let id of item.genre_ids) {
       for (let genre of genres) {
@@ -186,13 +189,11 @@ export function reload_all_movies(arr, place, genres) {
     img.src = "https://image.tmdb.org/t/p/original" + item.poster_path;
     title.innerHTML = item.title;
     origin_title.innerHTML = item.original_title;
-	genre_span.innerHTML = genreTitles.join(", ");
-	rating.innerHTML = item.vote_average.toFixed(2);
+    genre_span.innerHTML = genreTitles.join(", ");
+    rating.innerHTML = item.vote_average.toFixed(2);
 
-
-	place.append(movie_card)
-	movie_card.append(img, info_box, rating)
-	info_box.append(title, origin_title, genre_span)
-
+    place.append(movie_card);
+    movie_card.append(img, info_box, rating);
+    info_box.append(title, origin_title, genre_span);
   }
 }

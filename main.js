@@ -22,13 +22,16 @@ let close_modal = document.querySelector(".close_search");
 let movies_box = document.querySelector(".movies_box");
 let search_inp = document.querySelector(".searcher");
 let genres_list = document.querySelectorAll(".genres_list li");
+let body = document.body;
 searcher_btn.onclick = () => {
   searcher_modal.classList.add("show");
+  body.style.overflow = "hidden";
 };
 close_modal.onclick = () => {
   searcher_modal.classList.remove("show");
-  search_inp.value = ""
-  movies_box.innerHTML = ''
+  search_inp.value = "";
+  movies_box.innerHTML = "";
+  body.style.overflow = "scroll";
 };
 
 btns.forEach((btn) => {
@@ -38,8 +41,8 @@ btns.forEach((btn) => {
       act.classList.remove("active");
       console.log(act.innerHTML.toLowerCase());
     }
-	btn.classList.add("active");
-	
+    btn.classList.add("active");
+
     function debounce(func, timeout = 400) {
       let timer;
       return (...args) => {
@@ -76,13 +79,11 @@ export function setTrailer(video) {
   iframe.src = "https://www.youtube.com/embed/" + video.key;
 }
 
-getData("/person/popular")
-	.then((res) => {
+getData("/person/popular").then((res) => {
   reload_pop_stars(res.data.results.slice(0, 2), pop_stars_content),
     reload_pop_stars_list(res.data.results, pop_stars_list);
 });
-getData("/movie/top_rated")
-	.then((res) =>
+getData("/movie/top_rated").then((res) =>
   reload_top_rated(res.data.results.slice(0, 5), top_rated_content)
 );
 
@@ -105,60 +106,56 @@ Promise.all([
   reload_movies(upcoming_movies.data.results, upcoming_box, genres.data.genres);
 });
 
+getData("/genre/movie/list").then((res) => {
+  for (let item of res.data.genres) {
+    genres_arr.push(item);
+  }
+});
+
 let genres_box = [];
+let genres_arr = [];
 
 genres_list.forEach((genre) => {
   genre.onclick = (e) => {
     if (e.target.getAttribute("data-status")) {
       e.target.removeAttribute("data-status");
 
-      getData("/genre/movie/list")
-	  .then((items) => {
-        for (let item of items.data.genres) {
-          if (e.target.className === item.name) {
-            let index = genres_box.indexOf(item.id);
-            if (index !== -1) {
-              genres_box.splice(index, 1);
-            }
-            let joined_genres = genres_box.join(", ");
-            console.log(genres_box.join(", "));
-
-            getData(`/discover/movie?with_genres=${joined_genres}`)
-			.then(
-              (res) =>
-                reload_movies(
-                  res.data.results.slice(0, 8),
-                  now_playing_box,
-                  items.data.genres
-                )
-            );
+      for (let item of genres_arr) {
+        if (e.target.className === item.name) {
+          let index = genres_box.indexOf(item.id);
+          if (index !== -1) {
+            genres_box.splice(index, 1);
           }
+          let joined_genres = genres_box.join(",");
+          //   console.log(genres_box.join(", "));
+
+          getData(`/discover/movie?with_genres=${joined_genres}`).then((res) =>
+            reload_movies(
+              res.data.results.slice(0, 8),
+              now_playing_box,
+              genres_arr
+            )
+          );
         }
-      });
+      }
     } else {
       genre.dataset.status = "selected";
 
-      getData("/genre/movie/list")
-	  .then((items) => {
-        for (let item of items.data.genres) {
-          if (genre.className === item.name) {
-            let joined_genres = genres_box.join(", ");
-            // console.log(item);
-            genres_box.push(item.id);
-            console.log(genres_box.join(", "));
+      for (let item of genres_arr) {
+        if (genre.className === item.name) {
+          let joined_genres = genres_box.join(",");
+          genres_box.push(item.id);
+          //   console.log(genres_box.join/(","));
 
-            getData(`/discover/movie?with_genres=${joined_genres}`)
-			.then(
-              (res) =>
-                reload_movies(
-                  res.data.results.slice(0, 8),
-                  now_playing_box,
-                  items.data.genres
-                )
-            );
-          }
+          getData(`/discover/movie?with_genres=${joined_genres}`).then((res) =>
+            reload_movies(
+              res.data.results.slice(0, 8),
+              now_playing_box,
+              genres_arr
+            )
+          );
         }
-      });
+      }
     }
   };
 });
