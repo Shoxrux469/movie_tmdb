@@ -10,11 +10,11 @@ export function header() {
 		<div class="header">
 		<div class="left">
 		<div class="logo">
-  <img src="./public/cinema_logo.svg" alt="">
+  <img src="/public/cinema_logo.svg" alt="">
   <p> <span>Kino</span>area</p>
   </div>
   <div class="networks">
-  <a href="#"><img src="./public/networks_immg.svg" alt=""></a>
+  <a href="#"><img src="/public/networks_immg.svg" alt=""></a>
   </div>
   </div>
   <nav class="center">
@@ -27,13 +27,12 @@ export function header() {
   <a href="#">Категории</a>
   </nav>
   <div class="right">
-  <button class="searcher_btn"><img src="./public/searcher_btn.svg" alt=""></button>
+  <button class="searcher_btn"><img src="/public/searcher_btn.svg" alt=""></button>
   <button class="sign_in">Войти</button>
   </div>
   </div>
   `;
 }
-
 export function reload_movies(arr, place, genres) {
   place.innerHTML = "";
 
@@ -60,13 +59,14 @@ export function reload_movies(arr, place, genres) {
     img_bg.onmouseout = () => {
       img_bg_btn.classList.remove("show");
     };
+    img_bg_btn.onclick = () => {
+      location.assign(`http://localhost:5173/pages/movies/?id=` + item.id);
+    };
     img_bg.onclick = () => {
-      getData(`/movie/${item.id}/videos`).then((res) => {
+      getData(`/movie/${item.id}/videos`)
+	  .then((res) => {
         setTrailer(res.data.results[0]);
       });
-      img_bg_btn.onclick = () => {
-		location.assign(`http://localhost:5173/pages/movies/?id=` + item.id)
-	  };
 
       iframe.scrollIntoView({
         behavior: "smooth",
@@ -195,5 +195,18 @@ export function reload_all_movies(arr, place, genres) {
     place.append(movie_card);
     movie_card.append(img, info_box, rating);
     info_box.append(title, origin_title, genre_span);
+  }
+}
+
+export function reload_posters(arr, place) {
+  place.innerHTML = "";
+  for(let item of arr) {
+    let poster_img = document.createElement('img');
+
+    poster_img.src = "https://image.tmdb.org/t/p/original" + item.file_path
+    
+    poster_img.classList.add("posters_img")
+
+    place.append(poster_img)
   }
 }

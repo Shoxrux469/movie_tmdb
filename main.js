@@ -16,24 +16,25 @@ let pop_stars_list = document.querySelector(".pop_stars_list");
 let upcoming_box = document.querySelector(".upcoming_content");
 let top_rated_content = document.querySelector(".top_rated_content");
 let btns = document.querySelectorAll(".categories button");
-let searcher_btn = document.querySelector(".searcher_btn");
-let searcher_modal = document.querySelector(".searcher_wrapper");
-let close_modal = document.querySelector(".close_search");
 let movies_box = document.querySelector(".movies_box");
 let search_inp = document.querySelector(".searcher");
 let genres_list = document.querySelectorAll(".genres_list li");
+let searcher_modal = document.querySelector(".searcher_wrapper");
+let close_modal = document.querySelector(".close_search");
+let searcher_btn = document.querySelector(".searcher_btn");
 let body = document.body;
 searcher_btn.onclick = () => {
   searcher_modal.classList.add("show");
   body.style.overflow = "hidden";
 };
-close_modal.onclick = () => {
-  searcher_modal.classList.remove("show");
-  search_inp.value = "";
-  movies_box.innerHTML = "";
-  body.style.overflow = "scroll";
-};
-
+if (close_modal) {
+  close_modal.onclick = () => {
+    searcher_modal.classList.remove("show");
+    search_inp.value = "";
+    movies_box.innerHTML = "";
+    body.style.overflow = "scroll";
+  };
+}
 btns.forEach((btn) => {
   btn.onclick = (e) => {
     let active = document.querySelectorAll(".active");

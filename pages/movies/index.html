@@ -1,13 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./style.scss">
 </head>
+
 <body>
     <section>
+
+
+        <div class="poster_bg">
+            <div class="linear_gradient"></div>
+        </div>
+
         <header></header>
         <div class="container">
             <div class="poster">
@@ -16,20 +24,22 @@
                     <p>Главная > Фильмы > <span class="origin_title"></span></p>
                     <h2 class="origin_title"></h2>
                     <p class="movie_title"></p>
-                    <ul>
+                    <ul type="none">
                         <li>
 
                             <span>Kinoarea</span>
                         </li>
                         <li>
-                            
+
                             <span>IMDb</span>
                         </li>
                     </ul>
-                    <p class="movie_descr">Двое борцов за свободу отбывают срок в одной из самых строгих тюрем мира — в «Претории». Вместе с другими узниками они планируют дерзкий и опасный побег. Но придумать план — это только первый шаг. Шаг второй — реализация плана.</p>
+                    <p class="movie_descr">Двое борцов за свободу отбывают срок в одной из самых строгих тюрем мира — в
+                        «Претории». Вместе с другими узниками они планируют дерзкий и опасный побег. Но придумать план —
+                        это только первый шаг. Шаг второй — реализация плана.</p>
                     <div>
-                        <button> <img src="/public/play 1.svg" alt=""> Смотреть трейлер</button>
-                        <img src="/public/movies_networks.svg" alt="">
+                        <button class="scroll_to_trailer"> <img src="/public/play 1.svg" alt=""> Смотреть трейлер</button>
+                        <img class="movies_networks" src="/public/movies_networks.svg" alt="">
                     </div>
                 </div>
             </div>
@@ -40,10 +50,102 @@
                 <button class="like_btn"><img src="/public/heart_icon.svg" alt=""></button>
                 <p>В избранном у 37933 человек</p>
             </div>
+            <div class="data_box">
+                <ul type="none">
+                    <li>Год: <span class="year"></span></li>
+                    <li>Страна: <span class="country"></span></li>
+                    <li>Исходный язык:<span class="origin_lang"></span></li>
+                    <li>Разговорные языки:<span class="spoken_lang"></span></li>
+                </ul>
+                <ul type="none">
+                    <li>Жанр: <span class="genre"></span></li>
+                    <li>Время: <span class="run_time"></span></li>
+                    <li>компания: <span class="company"></span></li>
+                    <li>Слоган: <span class="tagline"></span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container">
+            <div class="main_roles">
+                <div class="main_roles_title">
+                    <h1>В главных ролях:</h1>
+                    <button>Все актёры <img src="/public/arrow_right_swiper.svg" alt=""></button>
+                </div>
+                <div class="main_roles_content">
 
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="trailer_types">
+                <button data-num="0">Премьеры</button>
+                <button data-num="1" class="clicked">Трейлеры</button>
+                <button data-num="2">Рецензии</button>
+                <button data-num="3">Студии</button>
+                <button data-num="4">Цитаты</button>
+                <button data-num="5">Сиквелы и приквелы</button>
+                <button data-num="6">Постеры</button>
+                <button data-num="7">Кадры</button>
+                <button data-num="8">Награды</button>
+            </div>
+            <div class="trailer">
+                <div class="trailer_title">
+                    <h1>Трейлеры фильма</h1>
+                    <button>Все трейлеры <img src="/public/Arrow_right.svg" alt=""></button>
+                </div>
+                <div class="trailer_content">
+                    <iframe width="100%" height="650px" src=""></iframe>
+                    <div class="trailer_info">
+                        <div class="trailer_info_left">
+                            <h2>Побег из Претории</h2>
+                            <img src="/public/movies_networks.svg" alt="">
+                        </div>
+                        <ul type="none">
+                            <li>
+                                <button class="like"><img src="/public/movie_like.svg" alt=""></button>
+                                <span>426</span>
+                            </li>
+                            <li>
+                                <button class="dislike"><img src="/public/movie_dislike.svg" alt=""></button>
+                                <span>74</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="posters">
+                <div class="posters_title">
+                    <h1>Постеры к фильму</h1>
+                    <button>Все постеры <img src="/public/Arrow_right.svg" alt=""></button>
+                </div>
+                <div class="movie_title"></div>
+                <div class="posters_content">
+
+                </div>
+                <div class="close_all_posters hide">
+                    Закрыть
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="movie_frames">
+                <div class="movie_frames_title">
+                    <h1>Кадры из фильма</h1>
+                    <button>Все постеры <img src="/public/Arrow_right.svg" alt=""></button>
+                </div>
+                <div class="movie_title">
+
+                </div>
+                <div class="movie_frames_content">
+                    
+                </div>
+            </div>
         </div>
     </section>
 
-    <script src="./script.js"></script>
+    <script type="module" src="./script.js"></script>
 </body>
+
 </html>
