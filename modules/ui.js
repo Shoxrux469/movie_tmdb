@@ -210,3 +210,15 @@ export function reload_posters(arr, place) {
     place.append(poster_img)
   }
 }
+export function reload_actors(arr, place) {
+  place.innerHTML = "";
+  for(let item of arr) {
+    let poster_img = document.createElement('img');
+
+    poster_img.src = "https://image.tmdb.org/t/p/original" + item.profile_path
+    
+    poster_img.classList.add("actors_img")
+
+    place.append(poster_img)
+  }
+}

@@ -275,7 +275,7 @@ section {
       }
     }
     .main_roles {
-      margin-top: 80px;
+      margin-block: 80px;
       display: flex;
       flex-direction: column;
       gap: 40px;
@@ -299,6 +299,17 @@ section {
           align-items: center;
         }
       }
+	  &_content{
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 16px;
+		img{
+			width: 24%;
+			height: 450px;
+			border-radius: 12px;
+		}
+	  }
     }
     .trailer_types {
       margin-bottom: 40px;
@@ -437,7 +448,7 @@ section {
         gap: 16px;
         position: relative;
         .posters_img {
-          width: 308px;
+          width: 24%;
           height: 450px;
           border-radius: 8px;
         }
@@ -494,16 +505,16 @@ section {
 		flex-wrap: wrap;
 		gap: 16px;
 		img{
-			width: 300px;
+			width: 24%;
 			height: 450px;
 			border-radius: 12px;
 			object-fit: cover;
 		}
 		img:first-child{
-			width: 600px;
+			width: 49%;
 		}
 		img:last-child{
-			width: 600px;
+			width: 49%;
 		}
 	  }
     }

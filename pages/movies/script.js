@@ -1,4 +1,4 @@
-import { header, reload_posters } from "../../modules/ui";
+import { header, reload_actors, reload_posters } from "../../modules/ui";
 import { getData } from "../../modules/https";
 header();
 
@@ -13,6 +13,7 @@ let poster_content = document.querySelector(".posters_content");
 let all_posters = document.querySelector(".posters_title button");
 let close_all_posters = document.querySelector(".close_all_posters");
 let movies_frames_content = document.querySelector(".movie_frames_content");
+let main_roles_content = document.querySelector(".main_roles_content");
 
 scroll_to_trailer.onclick = () => {
   iframe.scrollIntoView({
@@ -75,12 +76,12 @@ getData(`/movie/${id}`).then((res) => {
 let posters_num = 4;
 let frames_num = 6;
 all_posters.onclick = () => {
-  posters_num = 16;
+  posters_num += 12;
   close_all_posters.classList.remove("hide");
   close_all_posters.classList.add("show");
   get_posters();
   close_all_posters.onclick = () => {
-    posters_num = 4;
+    posters_num -= 12;
     get_posters();
 
     close_all_posters.classList.remove("show");
@@ -98,3 +99,9 @@ function get_posters() {
   });
 }
 get_posters();
+
+getData(`/movie/${id}/credits`)
+    .then(res => {
+        console.log(res);
+        reload_actors(res.data.cast.slice(0, 8), main_roles_content)
+    })

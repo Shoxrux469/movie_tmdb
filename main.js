@@ -144,8 +144,8 @@ genres_list.forEach((genre) => {
 
       for (let item of genres_arr) {
         if (genre.className === item.name) {
-          let joined_genres = genres_box.join(",");
           genres_box.push(item.id);
+          let joined_genres = genres_box.join(",");
           //   console.log(genres_box.join/(","));
 
           getData(`/discover/movie?with_genres=${joined_genres}`).then((res) =>
