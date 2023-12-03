@@ -1,5 +1,7 @@
 import {
   header,
+  footer,
+  searcher,
   reload_movies,
   reload_pop_stars,
   reload_top_rated,
@@ -8,6 +10,8 @@ import {
 } from "./modules/ui.js";
 import { getData } from "./modules/https.js";
 header();
+searcher();
+footer();
 let iframe = document.querySelector("iframe");
 let now_playing_box = document.querySelector(".now_playing_box");
 let pop_movies_box = document.querySelector(".pop_movies_box");
@@ -27,14 +31,12 @@ searcher_btn.onclick = () => {
   searcher_modal.classList.add("show");
   body.style.overflow = "hidden";
 };
-if (close_modal) {
-  close_modal.onclick = () => {
-    searcher_modal.classList.remove("show");
-    search_inp.value = "";
-    movies_box.innerHTML = "";
-    body.style.overflow = "scroll";
-  };
-}
+close_modal.onclick = () => {
+  searcher_modal.classList.remove("show");
+  search_inp.value = "";
+  movies_box.innerHTML = "";
+  body.style.overflow = "scroll";
+};
 btns.forEach((btn) => {
   btn.onclick = (e) => {
     let active = document.querySelectorAll(".active");

@@ -1,9 +1,15 @@
-import { header, reload_actors, reload_posters } from "../../modules/ui";
+import {
+  header,
+  searcher,
+  reload_actors,
+  reload_posters,
+  reload_movies,
+} from "../../modules/ui";
 import { getData } from "../../modules/https";
-header();
 
 let id = location.search.split("=").at(-1);
 console.log(id);
+header();
 header();
 
 let iframe = document.querySelector("iframe");
@@ -14,6 +20,24 @@ let all_posters = document.querySelector(".posters_title button");
 let close_all_posters = document.querySelector(".close_all_posters");
 let movies_frames_content = document.querySelector(".movie_frames_content");
 let main_roles_content = document.querySelector(".main_roles_content");
+let similar_movies_content = document.querySelector(".similar_movies_content");
+let movies_box = document.querySelector(".movies_box");
+let search_inp = document.querySelector(".searcher");
+let genres_list = document.querySelectorAll(".genres_list li");
+let searcher_modal = document.querySelector(".searcher_wrapper");
+let close_modal = document.querySelector(".close_search");
+let searcher_btn = document.querySelector(".searcher_btn");
+let body = document.body;
+searcher_btn.onclick = () => {
+  searcher_modal.classList.add("show");
+  body.style.overflow = "hidden";
+};
+close_modal.onclick = () => {
+  searcher_modal.classList.remove("show");
+  search_inp.value = "";
+  movies_box.innerHTML = "";
+  body.style.overflow = "scroll";
+};
 
 scroll_to_trailer.onclick = () => {
   iframe.scrollIntoView({
@@ -100,8 +124,17 @@ function get_posters() {
 }
 get_posters();
 
-getData(`/movie/${id}/credits`)
-    .then(res => {
-        console.log(res);
-        reload_actors(res.data.cast.slice(0, 8), main_roles_content)
-    })
+getData(`/movie/${id}/credits`).then((res) => {
+  reload_actors(res.data.cast.slice(0, 8), main_roles_content);
+});
+
+Promise.all([
+  getData(`/movie/${id}/similar`),
+  getData("/genre/movie/list"),
+]).then(([movies, genres]) => {
+  reload_movies(
+    movies.data.results,
+    similar_movies_content,
+    genres.data.genres
+  );
+});

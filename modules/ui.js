@@ -33,6 +33,48 @@ export function header() {
   </div>
   `;
 }
+
+export function searcher() {
+  let searcher_wrapper = document.querySelector('.searcher_wrapper')
+
+  searcher_wrapper.innerHTML = `
+  <div class="searcher_box">
+  <div class="logo">
+    <img src="/public/cinema_logo.svg" alt="">
+    <p> <span>Kino</span>area</p>
+  </div>
+  <div class="inp_box">
+    <input class="searcher" placeholder="Search..." />
+    <button><img src="/public/searcher_icon.svg" alt=""></button>
+    <img class="close_search" src="/public/ex_icon.svg" alt="">
+  </div>
+  <div class="categories">
+    <button>Movie</button>
+    <button>Person</button>
+    <button>TV</button>
+  </div>
+</div>
+<div class="movies_box">
+  <a href="/pages/movies/"></a>
+</div>
+  `
+}
+
+export function footer() {
+  let footer = document.querySelector("footer");
+  footer.innerHTML = `
+  <img src="/public/footer_networks.svg" alt="">
+  <ul type="none">
+    <li>Афиша</li>
+    <li>Новости</li>
+    <li>Персоны</li>
+    <li>Рейтинги</li>
+    <li>Рецензии</li>
+    <li>Каталог фильмов</li>
+  </ul>
+  <p>2020 © Kinoarea. Все права защищены</p>
+  <a href="#">Политика конфиденциальности</a>`
+}
 export function reload_movies(arr, place, genres) {
   place.innerHTML = "";
 
