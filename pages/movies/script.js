@@ -1,6 +1,4 @@
 import {
-  header,
-  searcher,
   reload_actors,
   reload_posters,
   reload_movies,
@@ -9,8 +7,6 @@ import { getData } from "../../modules/https";
 
 let id = location.search.split("=").at(-1);
 console.log(id);
-header();
-header();
 
 let iframe = document.querySelector("iframe");
 let trailer_types = document.querySelectorAll(".trailer_types button");

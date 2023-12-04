@@ -33,9 +33,8 @@ export function header() {
   </div>
   `;
 }
-
 export function searcher() {
-  let searcher_wrapper = document.querySelector('.searcher_wrapper')
+  let searcher_wrapper = document.querySelector(".searcher_wrapper");
 
   searcher_wrapper.innerHTML = `
   <div class="searcher_box">
@@ -57,8 +56,25 @@ export function searcher() {
 <div class="movies_box">
   <a href="/pages/movies/"></a>
 </div>
-  `
+  `;
 }
+
+// let movies_box = document.querySelector(".movies_box");
+// let search_inp = document.querySelector(".searcher");
+// let searcher_modal = document.querySelector(".searcher_wrapper");
+// let close_modal = document.querySelector(".close_search");
+// let searcher_btn = document.querySelector(".searcher_btn");
+// let body = document.body;
+// searcher_btn.onclick = () => {
+//   searcher_modal.classList.add("show");
+//   body.style.overflow = "hidden";
+// };
+// close_modal.onclick = () => {
+//   searcher_modal.classList.remove("show");
+//   search_inp.value = "";
+//   movies_box.innerHTML = "";
+//   body.style.overflow = "scroll";
+// };
 
 export function footer() {
   let footer = document.querySelector("footer");
@@ -73,7 +89,7 @@ export function footer() {
     <li>Каталог фильмов</li>
   </ul>
   <p>2020 © Kinoarea. Все права защищены</p>
-  <a href="#">Политика конфиденциальности</a>`
+  <a href="#">Политика конфиденциальности</a>`;
 }
 export function reload_movies(arr, place, genres) {
   place.innerHTML = "";
@@ -105,8 +121,7 @@ export function reload_movies(arr, place, genres) {
       location.assign(`http://localhost:5173/pages/movies/?id=` + item.id);
     };
     img_bg.onclick = () => {
-      getData(`/movie/${item.id}/videos`)
-	  .then((res) => {
+      getData(`/movie/${item.id}/videos`).then((res) => {
         setTrailer(res.data.results[0]);
       });
 
@@ -127,7 +142,6 @@ export function reload_movies(arr, place, genres) {
     title.innerHTML = item.original_title;
     img_rating.innerHTML = item.vote_average.toFixed(2);
     genre_span.innerHTML = genreTitles.join(", ");
-
     place.append(img_box);
     img_box.append(img_bg, img, title, genre_span);
     img_bg.append(img_bg_btn, img_rating);
@@ -148,12 +162,16 @@ export function reload_pop_stars(arr, place) {
     img.classList.add("pop_stars_img");
     div.classList.add("pop_stars_div");
 
-    img.src = "https://image.tmdb.org/t/p/original" + item.profile_path;
     img_title.innerHTML = item.name;
     origin_title.innerHTML = item.original_name;
+    img.src = "https://image.tmdb.org/t/p/original" + item.profile_path;
     div.append(img_title, origin_title, known_for);
     img_box.append(img, div);
     place.append(img_box);
+
+    img.onclick = () => {
+      location.assign(`http://localhost:5173/pages/actors/?id=` + item.id);
+    };
 
     for (let film of item.known_for) {
       known_for.innerHTML += film.title + ", ";
@@ -240,27 +258,127 @@ export function reload_all_movies(arr, place, genres) {
   }
 }
 
+export function reload_all_actors(arr, place) {
+  place.innerHTML = "";
+  for (let item of arr) {
+    let actor_card = document.createElement("div");
+    let img = document.createElement("img");
+    let info_box = document.createElement("div");
+    let h2 = document.createElement("h2");
+    let p = document.createElement("p");
+    let span = document.createElement("span");
+
+    actor_card.classList.add("actor_card");
+    info_box.classList.add("info_box");
+
+    img.src = "https://image.tmdb.org/t/p/original" + item.profile_path;
+    h2.innerHTML = item.name;
+    p.innerHTML = item.original_name;
+    span.innerHTML = item.known_for_department;
+
+    place.append(actor_card);
+    actor_card.append(img, info_box);
+    info_box.append(h2, p, span);
+  }
+}
+export function reload_all_tv(arr, place, genres) {
+  place.innerHTML = "";
+  for (let item of arr) {
+    let tv_card = document.createElement("div");
+    let img = document.createElement("img");
+    let info_box = document.createElement("div");
+    let h2 = document.createElement("h2");
+    let p = document.createElement("p");
+    let span = document.createElement("span");
+    let genreTitles = [];
+
+    tv_card.classList.add("tv_card");
+    info_box.classList.add("info_box");
+
+    img.src = "https://image.tmdb.org/t/p/original" + item.poster_path;
+    h2.innerHTML = item.name;
+    p.innerHTML = item.original_name;
+    for (let id of item.genre_ids) {
+      for (let genre of genres) {
+        if (id == genre.id) {
+          genreTitles.push(genre.name);
+        }
+      }
+    }
+    span.innerHTML = genreTitles.join(", ");
+
+    place.append(tv_card);
+    tv_card.append(img, info_box);
+    info_box.append(h2, p, span);
+  }
+}
+
 export function reload_posters(arr, place) {
   place.innerHTML = "";
-  for(let item of arr) {
-    let poster_img = document.createElement('img');
+  for (let item of arr) {
+    let poster_img = document.createElement("img");
 
-    poster_img.src = "https://image.tmdb.org/t/p/original" + item.file_path
-    
-    poster_img.classList.add("posters_img")
+    poster_img.src = "https://image.tmdb.org/t/p/original" + item.file_path;
 
-    place.append(poster_img)
+    poster_img.classList.add("posters_img");
+
+    place.append(poster_img);
   }
 }
 export function reload_actors(arr, place) {
   place.innerHTML = "";
-  for(let item of arr) {
-    let poster_img = document.createElement('img');
+  for (let item of arr) {
+    let poster_img = document.createElement("img");
 
-    poster_img.src = "https://image.tmdb.org/t/p/original" + item.profile_path
-    
-    poster_img.classList.add("actors_img")
+    poster_img.src = "https://image.tmdb.org/t/p/original" + item.profile_path;
 
-    place.append(poster_img)
+    poster_img.classList.add("actors_img");
+
+    place.append(poster_img);
+  }
+}
+
+export function reload_films(arr, place, genres) {
+  place.innerHTML = "";
+  for (let item of arr) {
+    let film_card = document.createElement("div");
+    let left = document.createElement("div");
+    let img = document.createElement("img");
+    let film_info = document.createElement("div");
+    let h2 = document.createElement("h2");
+    let p = document.createElement("p");
+    let actor_name = document.createElement("p");
+    let span = document.createElement("span");
+    let button = document.createElement("button");
+    let genreTitles = [];
+
+    film_card.classList.add("film_card");
+    left.classList.add("left");
+    film_info.classList.add("film_info");
+    actor_name.classList.add("actor_name");
+
+    for (let id of item.genre_ids) {
+      for (let genre of genres) {
+        if (id == genre.id) {
+          genreTitles.push(genre.name);
+        }
+      }
+    }
+    img.src = "https://image.tmdb.org/t/p/original" + item.poster_path;
+    h2.innerHTML = item.title;
+    p.innerHTML = item.title;
+    button.innerHTML = "Карточка фильма";
+    actor_name.innerHTML = item.character;
+
+    button.onclick = () => {
+      location.assign(`http://localhost:5173/pages/movies/?id=` + item.id);
+    };
+
+    span.innerHTML = genreTitles.join(", ");
+
+    place.append(film_card);
+    film_card.append(left, button);
+    left.append(img, film_info);
+    film_info.append(h2, p, span, actor_name);
   }
 }

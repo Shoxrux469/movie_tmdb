@@ -6,6 +6,8 @@ import {
   reload_pop_stars,
   reload_top_rated,
   reload_all_movies,
+  reload_all_actors,
+  reload_all_tv,
   reload_pop_stars_list,
 } from "./modules/ui.js";
 import { getData } from "./modules/https.js";
@@ -41,8 +43,8 @@ btns.forEach((btn) => {
   btn.onclick = (e) => {
     let active = document.querySelectorAll(".active");
     for (let act of active) {
+      //   console.log(act.innerHTML.toLowerCase());
       act.classList.remove("active");
-      console.log(act.innerHTML.toLowerCase());
     }
     btn.classList.add("active");
 
@@ -57,18 +59,37 @@ btns.forEach((btn) => {
     }
 
     function saveInput() {
-      //   console.log("Saving data", search_inp.value); COUNRT NUMBER OF ITERATIONS
-      Promise.all([
-        getData(
-          `/search/${btn.innerHTML.toLowerCase()}?query=${
-            search_inp.value
-          }&page=1`
-        ),
-        getData("/genre/movie/list"),
-      ]).then(([movies, genres]) => {
-        console.log(movies.data.results, movies_box);
-        reload_all_movies(movies.data.results, movies_box, genres.data.genres);
-      });
+      if (e.target.innerHTML.toLowerCase() == "movie") {
+        Promise.all([
+          getData(`/search/movie?query=${search_inp.value}&page=1`),
+          getData("/genre/movie/list"),
+        ]).then(([movies, genres]) => {
+          console.log(movies.data.results);
+          reload_all_movies(
+            movies.data.results,
+            movies_box,
+            genres.data.genres
+          );
+        });
+      } else if (e.target.innerHTML.toLowerCase() == "person") {
+        getData(`/search/person?query=${search_inp.value}&page=1`).then(
+          (res) => {
+            reload_all_actors(res.data.results, movies_box);
+          }
+        );
+      } else if (e.target.innerHTML.toLowerCase() == "tv") {
+        Promise.all([
+			getData(`/search/tv?query=${search_inp.value}&page=1`),
+			getData("/genre/movie/list"),
+		  ]).then(([movies, genres]) => {
+			console.log(movies.data.results);
+			reload_all_tv(
+			  movies.data.results,
+			  movies_box,
+			  genres.data.genres
+			);
+		  });
+	  }
     }
     const processChange = debounce(() => saveInput());
 
