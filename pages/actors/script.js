@@ -1,8 +1,5 @@
 import { getData } from "../../modules/https";
 import {
-  header,
-  searcher,
-  footer,
   reload_movies,
   reload_films,
   reload_posters,
@@ -12,8 +9,27 @@ let id = location.search.split("=").at(-1);
 let best_movies_content = document.querySelector(".best_movies_content");
 let photo_content = document.querySelector(".photo_content");
 let films_content = document.querySelector(".films_content");
+let info_btn = document.querySelector(".info_btn");
+let bio_btn = document.querySelector(".bio_btn");
+let biography_pi = document.querySelector(".biography_pi");
+let information_pi = document.querySelector(".information_pi");
+
+info_btn.onclick = () => {
+  bio_btn.classList.remove('clicked')
+  info_btn.classList.add('clicked')
+  biography_pi.classList.add('hide')
+  information_pi.classList.remove('hide')
+}
+bio_btn.onclick = () => {
+  info_btn.classList.remove('clicked')
+  bio_btn.classList.add('clicked')
+  biography_pi.classList.remove('hide')
+  information_pi.classList.add('hide')
+}
+
 getData(`/person/${id}`).then((res) => {
-  //   console.log(res.data);
+
+    console.log(res.data);
   for (let item of document.querySelectorAll(".origin_name")) {
     item.innerHTML = res.data.name;
   }
@@ -29,6 +45,7 @@ getData(`/person/${id}`).then((res) => {
   document.querySelector(".birthday").innerHTML = res.data.birthday;
   document.querySelector(".place_of_birth").innerHTML = res.data.place_of_birth;
   document.querySelector(".rating").innerHTML = res.data.popularity;
+  biography_pi.innerHTML = res.data.biography
 });
 
 Promise.all([

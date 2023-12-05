@@ -196,6 +196,10 @@ export function reload_pop_stars_list(arr, place) {
     info_box_title.innerHTML = item.name;
     info_box_origin_title.innerHTML = item.original_name;
 
+    info_box_left.onclick = () => {
+      location.assign(`http://localhost:5173/pages/actors/?id=` + item.id);
+    };
+
     place.append(info_box);
     info_box.append(info_box_left, info_box_right);
     info_box_left.append(info_box_title, info_box_origin_title);
@@ -320,6 +324,7 @@ export function reload_posters(arr, place) {
 
     poster_img.src = "https://image.tmdb.org/t/p/original" + item.file_path;
 
+
     poster_img.classList.add("posters_img");
 
     place.append(poster_img);
@@ -333,6 +338,10 @@ export function reload_actors(arr, place) {
     poster_img.src = "https://image.tmdb.org/t/p/original" + item.profile_path;
 
     poster_img.classList.add("actors_img");
+
+    poster_img.onclick = () => {
+      location.assign(`http://localhost:5173/pages/actors/?id=` + item.id);
+    };
 
     place.append(poster_img);
   }

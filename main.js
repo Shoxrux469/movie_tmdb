@@ -29,6 +29,13 @@ let searcher_modal = document.querySelector(".searcher_wrapper");
 let close_modal = document.querySelector(".close_search");
 let searcher_btn = document.querySelector(".searcher_btn");
 let body = document.body;
+let sign_in = document.querySelector('.sign_in');
+console.log(sign_in);
+
+sign_in.onclick = () => {
+  location.assign(`http://localhost:5173/pages/profile/`)
+}
+
 searcher_btn.onclick = () => {
   searcher_modal.classList.add("show");
   body.style.overflow = "hidden";

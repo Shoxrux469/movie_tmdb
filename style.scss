@@ -883,6 +883,7 @@ iframe {
     .info_box_left {
       display: flex;
       flex-direction: column;
+	  cursor: pointer;
       h2 {
         color: #fff;
         font-size: 20px;
