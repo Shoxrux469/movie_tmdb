@@ -1,12 +1,8 @@
-import {
-  reload_actors,
-  reload_posters,
-  reload_movies,
-} from "../../modules/ui";
+import { reload_actors, reload_posters, reload_movies } from "../../modules/ui";
 import { getData } from "../../modules/https";
 
 let id = location.search.split("=").at(-1);
-console.log(id);
+// console.log(id);
 
 let iframe = document.querySelector("iframe");
 let trailer_types = document.querySelectorAll(".trailer_types button");
@@ -19,9 +15,10 @@ let main_roles_content = document.querySelector(".main_roles_content");
 let similar_movies_content = document.querySelector(".similar_movies_content");
 let movies_box = document.querySelector(".movies_box");
 let search_inp = document.querySelector(".searcher");
-let genres_list = document.querySelectorAll(".genres_list li");
 let searcher_modal = document.querySelector(".searcher_wrapper");
 let close_modal = document.querySelector(".close_search");
+let like_btn = document.querySelector(".like_btn");
+let like_btn_img = document.querySelector(".like_btn img");
 let searcher_btn = document.querySelector(".searcher_btn");
 let body = document.body;
 searcher_btn.onclick = () => {
@@ -40,6 +37,33 @@ scroll_to_trailer.onclick = () => {
     behavior: "smooth",
   });
 };
+
+let liked_movies = JSON.parse(localStorage.getItem("liked_movies")) || [];
+console.log(liked_movies);
+
+if (liked_movies.includes(id)) {
+  like_btn.classList.add("liked");
+  like_btn_img.src = "/public/red_heart.png";
+} else {
+  like_btn.classList.remove("liked");
+  like_btn.src = "/public/heart_icon.svg";
+}
+
+like_btn.onclick = () => {
+  let liked_movies = JSON.parse(localStorage.getItem("liked_movies")) || [];
+
+  if (liked_movies.includes(id)) {
+    liked_movies = liked_movies.filter((el_id) => el_id !== id);
+    localStorage.setItem("liked_movies", JSON.stringify([...liked_movies]));
+    like_btn.classList.remove("liked");
+    like_btn.src = "/public/heart_icon.svg";
+    return;
+  }
+  localStorage.setItem("liked_movies", JSON.stringify([...liked_movies, id]));
+  like_btn.classList.add("liked");
+  like_btn_img.src = "/public/red_heart.png";
+};
+
 trailer_types.forEach((trailer) => {
   getData(`/movie/${id}/videos`).then((res) => {
     MovieTrailer(res.data.results[1]);
@@ -63,7 +87,7 @@ function MovieTrailer(video) {
 }
 
 getData(`/movie/${id}`).then((res) => {
-  console.log(res.data);
+  // console.log(res.data);
   document.querySelector(".poster_img").src =
     "https://image.tmdb.org/t/p/original" + res.data.poster_path;
   document.querySelectorAll(".origin_title").forEach((item) => {

@@ -14,6 +14,9 @@ let bio_btn = document.querySelector(".bio_btn");
 let biography_pi = document.querySelector(".biography_pi");
 let information_pi = document.querySelector(".information_pi");
 
+let liked_movies = JSON.parse(localStorage.getItem("liked_movies")) || [];
+console.log(liked_movies);
+
 info_btn.onclick = () => {
   bio_btn.classList.remove('clicked')
   info_btn.classList.add('clicked')
