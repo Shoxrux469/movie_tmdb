@@ -4,6 +4,7 @@ import {
   searcher,
   reload_movies,
   reload_pop_stars,
+  reload_trailers,
   reload_top_rated,
   reload_all_movies,
   reload_all_actors,
@@ -29,12 +30,13 @@ let searcher_modal = document.querySelector(".searcher_wrapper");
 let close_modal = document.querySelector(".close_search");
 let searcher_btn = document.querySelector(".searcher_btn");
 let body = document.body;
-let sign_in = document.querySelector('.sign_in');
+let sign_in = document.querySelector(".sign_in");
+let trailers = document.querySelector(".trailers");
 console.log(sign_in);
 
 sign_in.onclick = () => {
-  location.assign(`http://localhost:5173/pages/profile/`)
-}
+  location.assign(`http://localhost:5173/pages/profile/`);
+};
 
 searcher_btn.onclick = () => {
   searcher_modal.classList.add("show");
@@ -86,17 +88,13 @@ btns.forEach((btn) => {
         );
       } else if (e.target.innerHTML.toLowerCase() == "tv") {
         Promise.all([
-			getData(`/search/tv?query=${search_inp.value}&page=1`),
-			getData("/genre/movie/list"),
-		  ]).then(([movies, genres]) => {
-			console.log(movies.data.results);
-			reload_all_tv(
-			  movies.data.results,
-			  movies_box,
-			  genres.data.genres
-			);
-		  });
-	  }
+          getData(`/search/tv?query=${search_inp.value}&page=1`),
+          getData("/genre/movie/list"),
+        ]).then(([movies, genres]) => {
+          console.log(movies.data.results);
+          reload_all_tv(movies.data.results, movies_box, genres.data.genres);
+        });
+      }
     }
     const processChange = debounce(() => saveInput());
 
@@ -114,9 +112,14 @@ getData("/person/popular").then((res) => {
   reload_pop_stars(res.data.results.slice(0, 2), pop_stars_content),
     reload_pop_stars_list(res.data.results, pop_stars_list);
 });
-getData("/movie/top_rated").then((res) =>
-  reload_top_rated(res.data.results.slice(0, 5), top_rated_content)
-);
+
+getData("/movie/top_rated").then((res) => {
+  reload_top_rated(res.data.results.slice(0, 5), top_rated_content);
+});
+
+getData("/movie/popular").then((res) => {
+  reload_trailers(res.data.results, trailers);
+});
 
 Promise.all([
   getData("/movie/now_playing?page=2&language=ru"),
@@ -145,6 +148,7 @@ getData("/genre/movie/list").then((res) => {
 
 let genres_box = [];
 let genres_arr = [];
+console.log(genres_arr);
 
 genres_list.forEach((genre) => {
   genre.onclick = (e) => {
@@ -158,7 +162,7 @@ genres_list.forEach((genre) => {
             genres_box.splice(index, 1);
           }
           let joined_genres = genres_box.join(",");
-          //   console.log(genres_box.join(", "));
+            // console.log(genres_box.join(", "));
 
           getData(`/discover/movie?with_genres=${joined_genres}`).then((res) =>
             reload_movies(

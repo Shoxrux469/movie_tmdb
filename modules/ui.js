@@ -148,6 +148,48 @@ export function reload_movies(arr, place, genres) {
   }
 }
 
+export function reload_trailers(arr, place) {
+  place.innerHTML = "";
+  for (let item of arr) {
+    let trailer_card = document.createElement("div");
+    let img_bg = document.createElement("div");
+    // let img = document.createElement("img");
+    let trailer_icon = document.createElement("img");
+    let title = document.createElement("p");
+
+    trailer_card.classList.add("trailer_card");
+    img_bg.classList.add("img_bg");
+    // img.classList.add('trailer_img')
+
+    // img.src = "https://image.tmdb.org/t/p/original" + item.poster_path
+    trailer_icon.src = "/public/trailer_icon.svg";
+    img_bg.style.backgroundImage = `url(https://image.tmdb.org/t/p/original + ${item.poster_path})`;
+    img_bg.style.backgroundRepeat = `no-repeat`;
+    img_bg.style.backgroundSize = `contain`;
+    img_bg.style.backgroundPosition = `center`;
+    title.innerHTML = item.title;
+
+    img_bg.onclick = () => {
+      getData(`/movie/${item.id}/videos`).then((res) => {
+        setTrailer(res.data.results[0]);
+      });
+
+      iframe.scrollIntoView({
+        behavior: "smooth",
+      });
+    };
+    console.log(img_bg);
+
+    place.append(trailer_card);
+    trailer_card.append(
+      img_bg,
+      //  img,
+      title
+    );
+    img_bg.append(trailer_icon);
+  }
+}
+
 export function reload_pop_stars(arr, place) {
   place.innerHTML = "";
   for (let item of arr) {
@@ -323,7 +365,6 @@ export function reload_posters(arr, place) {
     let poster_img = document.createElement("img");
 
     poster_img.src = "https://image.tmdb.org/t/p/original" + item.file_path;
-
 
     poster_img.classList.add("posters_img");
 
